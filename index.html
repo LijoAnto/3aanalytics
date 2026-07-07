@@ -2121,27 +2121,40 @@
       <div class="row g-4">
         <div class="col-lg-6">
           <form id="contactForm">
+            <!-- Formsubmit hidden fields -->
+            <input type="hidden" name="_subject" value="New Project Enquiry — 3A Analytics">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+
             <div class="mb-4">
               <label for="name" class="form-label">Your Full Name</label>
-              <input type="text" class="form-control" id="name" placeholder="e.g. Priya Sharma" required>
+              <input type="text" class="form-control" id="name" name="name" placeholder="e.g. Priya Sharma" required>
             </div>
 
             <div class="mb-4">
               <label for="email" class="form-label">Work Email</label>
-              <input type="email" class="form-control" id="email" placeholder="you@company.com" required>
+              <input type="email" class="form-control" id="email" name="email" placeholder="you@company.com" required>
             </div>
 
             <div class="mb-4">
               <label for="company" class="form-label">Company / Organisation (Optional)</label>
-              <input type="text" class="form-control" id="company" placeholder="Your company name">
+              <input type="text" class="form-control" id="company" name="company" placeholder="Your company name">
             </div>
 
             <div class="mb-4">
               <label for="message" class="form-label">Tell Us About Your Data Challenge</label>
-              <textarea class="form-control" id="message" rows="5" placeholder="What business problem are you trying to solve? What data do you have? What outcome are you expecting?" required></textarea>
+              <textarea class="form-control" id="message" name="message" rows="5" placeholder="What business problem are you trying to solve? What data do you have? What outcome are you expecting?" required></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary-custom">
+            <!-- Success / Error messages -->
+            <div id="formSuccess" style="display:none; padding:1rem 1.5rem; border-radius:12px; background:rgba(0,200,150,0.15); border:1px solid rgba(0,200,150,0.4); color:#00c896; margin-bottom:1rem; font-weight:500;">
+              <i class="fas fa-check-circle me-2"></i> Message sent! We'll get back to you soon.
+            </div>
+            <div id="formError" style="display:none; padding:1rem 1.5rem; border-radius:12px; background:rgba(236,72,153,0.15); border:1px solid rgba(236,72,153,0.4); color:#ec4899; margin-bottom:1rem; font-weight:500;">
+              <i class="fas fa-exclamation-circle me-2"></i> Something went wrong. Please try again.
+            </div>
+
+            <button type="submit" class="btn btn-primary-custom" id="submitBtn">
               Send Enquiry
               <i class="fas fa-paper-plane ms-2"></i>
             </button>
@@ -2421,17 +2434,51 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    /* ── FORM SUBMIT ── */
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    /* ── FORM SUBMIT — sends to 3aanalytical@gmail.com via Formsubmit.co ── */
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const btn = this.querySelector('button[type="submit"]');
-      btn.innerHTML = '<i class="fas fa-check ms-1"></i> Sent!';
-      btn.style.background = 'linear-gradient(135deg,#00c896,#00a878)';
-      setTimeout(() => {
+      const btn     = document.getElementById('submitBtn');
+      const success = document.getElementById('formSuccess');
+      const error   = document.getElementById('formError');
+      success.style.display = 'none';
+      error.style.display   = 'none';
+
+      btn.disabled    = true;
+      btn.innerHTML   = '<i class="fas fa-spinner fa-spin ms-1"></i> Sending…';
+
+      const data = {
+        name:    document.getElementById('name').value,
+        email:   document.getElementById('email').value,
+        company: document.getElementById('company').value,
+        message: document.getElementById('message').value
+      };
+
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/3aanalytical@gmail.com', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body:    JSON.stringify(data)
+        });
+        const json = await res.json();
+        if (json.success === 'true' || json.success === true) {
+          success.style.display = 'block';
+          this.reset();
+          btn.innerHTML = '<i class="fas fa-check ms-1"></i> Sent!';
+          btn.style.background = 'linear-gradient(135deg,#00c896,#00a878)';
+          setTimeout(() => {
+            btn.innerHTML = 'Send Enquiry <i class="fas fa-paper-plane ms-2"></i>';
+            btn.style.background = '';
+            success.style.display = 'none';
+          }, 4000);
+        } else {
+          throw new Error('failed');
+        }
+      } catch {
+        error.style.display = 'block';
         btn.innerHTML = 'Send Enquiry <i class="fas fa-paper-plane ms-2"></i>';
-        btn.style.background = '';
-        this.reset();
-      }, 3000);
+      } finally {
+        btn.disabled = false;
+      }
     });
   </script>
 </body>

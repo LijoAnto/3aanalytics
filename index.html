@@ -1551,6 +1551,284 @@
     }
     @keyframes blink { 50% { opacity: 0; } }
 
+    /* ── WAVE DIVIDER ── */
+    .wave-divider { line-height: 0; overflow: hidden; }
+    .wave-divider svg { display: block; width: 100%; }
+
+    /* ── CARD NUMBER BADGE ── */
+    .card-num {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+      background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(124,58,237,0.08));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ── HOW IT WORKS SECTION ── */
+    #process {
+      position: relative;
+      background: linear-gradient(180deg, rgba(10,14,39,0.98) 0%, rgba(12,16,45,0.98) 100%);
+      overflow: hidden;
+    }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      position: relative;
+    }
+    .process-grid::before {
+      content: '';
+      position: absolute;
+      top: 48px;
+      left: 10%;
+      width: 80%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+      opacity: 0.25;
+    }
+    @media (max-width: 768px) { .process-grid::before { display: none; } }
+    .process-step {
+      text-align: center;
+      position: relative;
+      padding: 0 1rem;
+    }
+    .step-icon-wrap {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(124,58,237,0.10));
+      border: 2px solid rgba(0,212,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+      position: relative;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 0 0 rgba(0,212,255,0.3);
+    }
+    .process-step:hover .step-icon-wrap {
+      transform: translateY(-6px);
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 8px rgba(0,212,255,0.07), 0 10px 30px rgba(0,212,255,0.2);
+    }
+    .step-icon-wrap i {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .step-num {
+      position: absolute;
+      top: -8px; right: -8px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: white;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .process-step h5 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .process-step p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ── FAQ SECTION ── */
+    #faq {
+      background: linear-gradient(135deg, rgba(10,14,39,0.99) 0%, rgba(8,10,30,0.99) 100%);
+      position: relative;
+    }
+    .faq-item {
+      border: 1px solid rgba(0,212,255,0.12);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      background: rgba(255,255,255,0.02);
+    }
+    .faq-item.open {
+      border-color: rgba(0,212,255,0.35);
+      box-shadow: 0 4px 24px rgba(0,212,255,0.08);
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.4rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      text-align: left;
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
+      transition: color 0.3s ease;
+    }
+    .faq-item.open .faq-question { color: var(--accent-primary); }
+    .faq-icon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0,212,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      color: var(--accent-primary);
+      transition: all 0.35s ease;
+    }
+    .faq-item.open .faq-icon {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      border-color: transparent;
+      color: white;
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      padding: 0 1.75rem;
+      color: var(--text-secondary);
+      font-size: 0.97rem;
+      line-height: 1.75;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding: 0 1.75rem 1.5rem;
+    }
+
+    /* ── MULTI-COLUMN FOOTER ── */
+    .site-footer {
+      background: linear-gradient(180deg, rgba(8,10,28,0.98) 0%, rgba(5,7,20,1) 100%);
+      border-top: 1px solid rgba(0,212,255,0.1);
+      padding: 5rem 0 2rem;
+      position: relative;
+    }
+    .site-footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 60%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-primary), var(--accent-secondary), transparent);
+      opacity: 0.5;
+    }
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+      margin: 1rem 0 1.5rem;
+      max-width: 260px;
+    }
+    .footer-social { display: flex; gap: 0.6rem; }
+    .footer-social a {
+      width: 38px; height: 38px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,212,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    .footer-social a:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+      background: rgba(0,212,255,0.08);
+      transform: translateY(-3px);
+    }
+    .footer-col h6 {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-primary);
+      margin-bottom: 1.5rem;
+    }
+    .footer-links { list-style: none; padding: 0; margin: 0; }
+    .footer-links li { margin-bottom: 0.75rem; }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .footer-links a::before {
+      content: '→';
+      color: var(--accent-primary);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: all 0.3s ease;
+      font-size: 0.8rem;
+    }
+    .footer-links a:hover { color: #fff; padding-left: 4px; }
+    .footer-links a:hover::before { opacity: 1; transform: translateX(0); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin-top: 4rem;
+      padding-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .footer-bottom strong {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── ENHANCED INPUT FOCUS ── */
+    .input-wrap { position: relative; }
+    .input-wrap .form-control,
+    .input-wrap textarea.form-control {
+      padding-left: 3rem;
+    }
+    .input-wrap .input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(0,212,255,0.4);
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: color 0.3s ease;
+    }
+    .input-wrap textarea ~ .input-icon { top: 1.1rem; transform: none; }
+    .input-wrap .form-control:focus ~ .input-icon,
+    .input-wrap textarea.form-control:focus ~ .input-icon { color: var(--accent-primary); }
+
+    /* ── ANIMATED GRADIENT BORDER ── */
+    @keyframes borderGlow {
+      0%,100% { box-shadow: 0 0 0 0 rgba(0,212,255,0); }
+      50%      { box-shadow: 0 0 20px 2px rgba(0,212,255,0.15); }
+    }
+    .glass-card:hover, .testimonial-card:hover { animation: borderGlow 2s ease-in-out infinite; }
+
     /* ── ENHANCED SECTION DIVIDER ── */
     .section-divider {
       width: 100%;
@@ -1594,8 +1872,9 @@
         <ul class="navbar-nav ms-auto align-items-center">
           <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-          <li class="nav-item"><a class="nav-link" href="#about">Why Me</a></li>
-          <li class="nav-item"><a class="nav-link" href="#technology">Tools</a></li>
+          <li class="nav-item"><a class="nav-link" href="#process">Process</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">Why Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
           <li class="nav-item ms-lg-3">
             <a href="#contact" class="btn btn-primary-custom">Hire Me</a>
@@ -1737,6 +2016,7 @@
       <div class="row g-4">
         <div class="col-md-4">
           <div class="glass-card">
+            <span class="card-num">01</span>
             <div class="feature-icon">
               <i class="fas fa-chart-bar"></i>
             </div>
@@ -1750,6 +2030,7 @@
 
         <div class="col-md-4">
           <div class="glass-card">
+            <span class="card-num">02</span>
             <div class="feature-icon">
               <i class="fas fa-brain"></i>
             </div>
@@ -1763,6 +2044,7 @@
 
         <div class="col-md-4">
           <div class="glass-card">
+            <span class="card-num">03</span>
             <div class="feature-icon">
               <i class="fas fa-users"></i>
             </div>
@@ -1776,6 +2058,7 @@
 
         <div class="col-md-4">
           <div class="glass-card">
+            <span class="card-num">04</span>
             <div class="feature-icon">
               <i class="fas fa-file-alt"></i>
             </div>
@@ -1789,6 +2072,7 @@
 
         <div class="col-md-4">
           <div class="glass-card">
+            <span class="card-num">05</span>
             <div class="feature-icon">
               <i class="fas fa-robot"></i>
             </div>
@@ -1798,6 +2082,64 @@
               anomaly detectors, NLP classifiers, and more — tailored to your exact business needs.
             </p>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAVE: Services → Process -->
+  <div class="wave-divider" style="background:var(--bg-primary)">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="height:60px">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="rgba(10,14,39,0.98)"/>
+    </svg>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section id="process">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-eyebrow">Our Process</div>
+        <h2 class="section-title">How We Work With You</h2>
+        <p class="section-subtitle">
+          A clear, structured process — so you always know what's happening, what's next, and what to expect.
+        </p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-step reveal" style="transition-delay:0.1s">
+          <div class="step-icon-wrap">
+            <span class="step-num">1</span>
+            <i class="fas fa-search"></i>
+          </div>
+          <h5>Discovery & Audit</h5>
+          <p>We dive deep into your data sources, business goals, and pain points to understand exactly what you need.</p>
+        </div>
+
+        <div class="process-step reveal" style="transition-delay:0.2s">
+          <div class="step-icon-wrap">
+            <span class="step-num">2</span>
+            <i class="fas fa-drafting-compass"></i>
+          </div>
+          <h5>Strategy & Design</h5>
+          <p>We plan the solution architecture, choose the right tools, and present a clear roadmap before writing a single line of code.</p>
+        </div>
+
+        <div class="process-step reveal" style="transition-delay:0.3s">
+          <div class="step-icon-wrap">
+            <span class="step-num">3</span>
+            <i class="fas fa-code"></i>
+          </div>
+          <h5>Build & Deliver</h5>
+          <p>We build, test, and iterate rapidly — keeping you in the loop at every milestone until you love the result.</p>
+        </div>
+
+        <div class="process-step reveal" style="transition-delay:0.4s">
+          <div class="step-icon-wrap">
+            <span class="step-num">4</span>
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h5>Optimize & Support</h5>
+          <p>We don't disappear after delivery. We monitor performance, fine-tune models, and support your team as you scale.</p>
         </div>
       </div>
     </div>
@@ -2071,6 +2413,65 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-eyebrow">FAQ</div>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">
+          Everything you need to know before we start working together.
+        </p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8 reveal">
+
+          <div class="faq-item">
+            <button class="faq-question">
+              What industries do you work with?
+              <span class="faq-icon"><i class="fas fa-plus"></i></span>
+            </button>
+            <div class="faq-answer">We work across 12+ industries including retail, e-commerce, logistics, finance, healthcare, manufacturing, and SaaS. If you have data and a business question, we can help — regardless of your sector.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              How long does a typical project take?
+              <span class="faq-icon"><i class="fas fa-plus"></i></span>
+            </button>
+            <div class="faq-answer">It depends on complexity. A dashboard or automated report can be ready in 1–2 weeks. A full AI forecasting model or custom analytics system typically takes 4–8 weeks. We'll give you a clear timeline in our proposal.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Do you work with small businesses and startups?
+              <span class="faq-icon"><i class="fas fa-plus"></i></span>
+            </button>
+            <div class="faq-answer">Absolutely. We believe every business — regardless of size — deserves enterprise-quality analytics. We have flexible engagement models designed to work within startup budgets while still delivering real impact.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              What data do I need to get started?
+              <span class="faq-icon"><i class="fas fa-plus"></i></span>
+            </button>
+            <div class="faq-answer">Whatever you have — spreadsheets, a database, a CRM export, or even raw CSVs. We start with a data audit to understand what you have and identify any gaps. You don't need perfect data to get value from analytics.</div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Will I own the work you build for me?
+              <span class="faq-icon"><i class="fas fa-plus"></i></span>
+            </button>
+            <div class="faq-answer">Yes, 100%. Everything we build — dashboards, models, scripts, pipelines — is yours. We also document everything and walk you through it so your team can maintain and extend it independently.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
 
@@ -2128,22 +2529,34 @@
 
             <div class="mb-4">
               <label for="name" class="form-label">Your Full Name</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="e.g. Priya Sharma" required>
+              <div class="input-wrap">
+                <input type="text" class="form-control" id="name" name="name" placeholder="e.g. Priya Sharma" required>
+                <i class="fas fa-user input-icon"></i>
+              </div>
             </div>
 
             <div class="mb-4">
               <label for="email" class="form-label">Work Email</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="you@company.com" required>
+              <div class="input-wrap">
+                <input type="email" class="form-control" id="email" name="email" placeholder="you@company.com" required>
+                <i class="fas fa-envelope input-icon"></i>
+              </div>
             </div>
 
             <div class="mb-4">
               <label for="company" class="form-label">Company / Organisation (Optional)</label>
-              <input type="text" class="form-control" id="company" name="company" placeholder="Your company name">
+              <div class="input-wrap">
+                <input type="text" class="form-control" id="company" name="company" placeholder="Your company name">
+                <i class="fas fa-building input-icon"></i>
+              </div>
             </div>
 
             <div class="mb-4">
               <label for="message" class="form-label">Tell Us About Your Data Challenge</label>
-              <textarea class="form-control" id="message" name="message" rows="5" placeholder="What business problem are you trying to solve? What data do you have? What outcome are you expecting?" required></textarea>
+              <div class="input-wrap">
+                <textarea class="form-control" id="message" name="message" rows="5" placeholder="What business problem are you trying to solve? What data do you have? What outcome are you expecting?" required></textarea>
+                <i class="fas fa-comment-dots input-icon"></i>
+              </div>
             </div>
 
             <!-- Success / Error messages -->
@@ -2206,19 +2619,65 @@
   </section>
 
   <!-- FOOTER -->
-  <footer style="background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%); border-top: 1px solid var(--border-subtle); padding: 3rem 0; margin-top: 4rem; position: relative;">
+  <footer class="site-footer">
     <div class="container">
-      <div class="row align-items-center">
-        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-          <p class="mb-0" style="font-size: 0.95rem;">
-            © 2025 <strong style="background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">3A Analytics</strong>. Data Intelligence & AI Solutions.
-          </p>
+      <div class="row g-5">
+
+        <!-- Brand -->
+        <div class="col-lg-4 footer-brand">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">
+            <img src="logo3.png" alt="3A Analytics" style="width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(0,212,255,0.4));">
+            <span style="font-family:'DM Serif Display',serif;font-size:1.4rem;background:linear-gradient(135deg,var(--accent-primary),var(--accent-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;">3A Analytics</span>
+          </div>
+          <p>Transforming complex data into clear intelligence — faster growth, lower costs, and decisions you can measure.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
         </div>
-        <div class="col-md-6 text-center text-md-end">
-          <p class="mb-0" style="color: var(--text-muted); font-size: 0.9rem;">
-            Engineered for clarity • Powered by intelligence 🚀
-          </p>
+
+        <!-- Quick Links -->
+        <div class="col-6 col-lg-2 footer-col">
+          <h6>Quick Links</h6>
+          <ul class="footer-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#about">Why Us</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
         </div>
+
+        <!-- Services -->
+        <div class="col-6 col-lg-3 footer-col">
+          <h6>Services</h6>
+          <ul class="footer-links">
+            <li><a href="#services">Live Dashboards</a></li>
+            <li><a href="#services">AI Forecasting</a></li>
+            <li><a href="#services">Customer Analysis</a></li>
+            <li><a href="#services">Automated Reports</a></li>
+            <li><a href="#services">Custom AI Solutions</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="col-lg-3 footer-col">
+          <h6>Get In Touch</h6>
+          <ul class="footer-links">
+            <li><a href="mailto:3aanalytical@gmail.com"><i class="fas fa-envelope me-2" style="color:var(--accent-primary);font-size:0.8rem;"></i>3aanalytical@gmail.com</a></li>
+            <li><a href="tel:+91733956498"><i class="fas fa-phone me-2" style="color:var(--accent-primary);font-size:0.8rem;"></i>+91 733956498</a></li>
+            <li><a href="#contact" style="margin-top:1rem;display:inline-block;padding:0.6rem 1.4rem;background:linear-gradient(135deg,var(--accent-primary),var(--accent-secondary));border-radius:10px;color:#fff;font-weight:600;font-size:0.88rem;">Start a Project</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2025 <strong>3A Analytics</strong>. All rights reserved.</span>
+        <span>Engineered for clarity · Powered by intelligence</span>
       </div>
     </div>
   </footer>
@@ -2432,6 +2891,16 @@
     /* ── BACK TO TOP ── */
     document.getElementById('backToTop').addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ── FAQ ACCORDION ── */
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
     });
 
     /* ── FORM SUBMIT — sends to 3aanalytical@gmail.com via Formsubmit.co ── */

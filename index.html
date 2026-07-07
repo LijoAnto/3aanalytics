@@ -1317,9 +1317,264 @@
     .mb-custom {
       margin-bottom: 2rem;
     }
+
+    /* ── LOADING SCREEN ── */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-primary);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 2rem;
+      animation: logoPulse 1s ease-in-out infinite alternate;
+    }
+    @keyframes logoPulse {
+      from { filter: drop-shadow(0 0 10px rgba(0,212,255,0.3)); }
+      to   { filter: drop-shadow(0 0 30px rgba(0,212,255,0.8)); }
+    }
+    .loader-bar {
+      width: 200px;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .loader-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+      border-radius: 3px;
+      animation: loadFill 1.4s ease-in-out forwards;
+    }
+    @keyframes loadFill {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    .cursor-dot {
+      width: 8px; height: 8px;
+      background: var(--accent-primary);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease;
+      box-shadow: 0 0 10px var(--accent-primary), 0 0 20px var(--accent-primary);
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(0,212,255,0.5);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 99997;
+      transform: translate(-50%, -50%);
+      transition: all 0.15s ease;
+    }
+    .cursor-ring.hover { transform: translate(-50%,-50%) scale(1.6); border-color: var(--accent-primary); background: rgba(0,212,255,0.05); }
+    @media (hover: none) { .cursor-dot, .cursor-ring { display: none; } }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal        { opacity: 0; transform: translateY(50px);  transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-left   { opacity: 0; transform: translateX(-60px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-right  { opacity: 0; transform: translateX(60px);  transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-scale  { opacity: 0; transform: scale(0.85);       transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible, .reveal-left.visible, .reveal-right.visible, .reveal-scale.visible {
+      opacity: 1; transform: none;
+    }
+
+    /* ── HERO STATS ── */
+    .hero-stats-bar {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin-top: 3.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      animation: fadeInUp 1.4s ease-out 0.4s both;
+    }
+    .stat-box { text-align: left; }
+    .stat-box .num {
+      font-family: 'Space Mono', monospace;
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .stat-box .lbl {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ── PARTICLES ── */
+    #particles-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    #hero .container { position: relative; z-index: 3; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(10,14,39,0.99) 0%, rgba(8,10,30,0.99) 100%);
+    }
+    .testimonial-card {
+      background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(124,58,237,0.05));
+      border: 1px solid rgba(0,212,255,0.15);
+      border-radius: 20px;
+      padding: 2.5rem;
+      position: relative;
+      transition: all 0.4s ease;
+      height: 100%;
+    }
+    .testimonial-card:hover {
+      border-color: rgba(0,212,255,0.4);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(0,212,255,0.1);
+    }
+    .testimonial-card .quote-icon {
+      font-size: 3.5rem;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+    .testimonial-card .quote-text {
+      color: rgba(248,250,252,0.85);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+      font-style: italic;
+    }
+    .testimonial-card .stars {
+      color: #FFD93D;
+      font-size: 1rem;
+      margin-bottom: 1.25rem;
+      letter-spacing: 2px;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .author-avatar {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: white;
+      flex-shrink: 0;
+    }
+    .author-name { font-weight: 600; font-size: 1rem; color: #ffffff; }
+    .author-role { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* ── BACK TO TOP ── */
+    #backToTop {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      border: none;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0,212,255,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #backToTop.visible { opacity: 1; transform: translateY(0); }
+    #backToTop:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,212,255,0.6); }
+
+    /* ── GLOWING BADGE ── */
+    .glow-badge {
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(124,58,237,0.1));
+      border: 1px solid rgba(0,212,255,0.35);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      animation: badgeGlow 2s ease-in-out infinite alternate;
+    }
+    @keyframes badgeGlow {
+      from { box-shadow: 0 0 8px rgba(0,212,255,0.2); }
+      to   { box-shadow: 0 0 20px rgba(0,212,255,0.5); }
+    }
+
+    /* ── TYPEWRITER CURSOR ── */
+    .tw-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1em;
+      background: var(--accent-primary);
+      margin-left: 3px;
+      vertical-align: text-bottom;
+      animation: blink 0.75s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ── ENHANCED SECTION DIVIDER ── */
+    .section-divider {
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary), transparent);
+      opacity: 0.3;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div id="loader">
+    <div class="loader-logo">3A Analytics</div>
+    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Back To Top -->
+  <button id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -1352,6 +1607,7 @@
 
   <!-- HERO -->
   <section id="hero">
+    <canvas id="particles-canvas"></canvas>
 
     <!-- Decorative: animated line chart (right side) -->
     <svg class="chart-deco chart-deco-hero" viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg">
@@ -1399,7 +1655,7 @@
 
             <h1 class="hero-title">
               Raw Data. Sharp Minds.<br>
-              <span class="gradient-text">Smarter Decisions.</span>
+              <span class="gradient-text" id="typewriterTarget"></span><span class="tw-cursor" id="twCursor"></span>
             </h1>
 
             <p class="hero-subtitle">
@@ -1416,6 +1672,13 @@
               <a href="#services" class="btn btn-outline-custom">
                 Explore Services
               </a>
+            </div>
+
+            <div class="hero-stats-bar">
+              <div class="stat-box"><div class="num" data-target="50">0</div><div class="lbl">Projects Delivered</div></div>
+              <div class="stat-box"><div class="num" data-target="12">0</div><div class="lbl">Industries Served</div></div>
+              <div class="stat-box"><div class="num" data-target="98">0</div><div class="lbl">% Client Satisfaction</div></div>
+              <div class="stat-box"><div class="num" data-target="5">0</div><div class="lbl">Years Experience</div></div>
             </div>
           </div>
         </div>
@@ -1622,6 +1885,72 @@
               model, and make sure you own and understand the work —
               even after the project ends.
             </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-eyebrow">Client Love</div>
+        <h2 class="section-title">What Our Clients Say</h2>
+        <p class="section-subtitle">
+          Real results, real relationships — here's what businesses say after working with 3A Analytics.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4 reveal" style="transition-delay:0.1s">
+          <div class="testimonial-card">
+            <span class="quote-icon">"</span>
+            <div class="stars">★★★★★</div>
+            <p class="quote-text">
+              3A Analytics turned our messy sales data into a live dashboard that our entire team now relies on daily. The ROI was visible within the first month.
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">R</div>
+              <div>
+                <div class="author-name">Ramesh Nair</div>
+                <div class="author-role">CEO, RetailEdge India</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 reveal" style="transition-delay:0.2s">
+          <div class="testimonial-card">
+            <span class="quote-icon">"</span>
+            <div class="stars">★★★★★</div>
+            <p class="quote-text">
+              Their AI forecasting model cut our inventory overstock by 30%. The delivery was fast, the communication was transparent, and the results speak for themselves.
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">P</div>
+              <div>
+                <div class="author-name">Priya Menon</div>
+                <div class="author-role">Supply Chain Head, LogiCore</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 reveal" style="transition-delay:0.3s">
+          <div class="testimonial-card">
+            <span class="quote-icon">"</span>
+            <div class="stars">★★★★★</div>
+            <p class="quote-text">
+              We finally understand our customer segments. 3A Analytics delivered a behaviour analysis that changed how we plan campaigns — our conversions doubled.
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">A</div>
+              <div>
+                <div class="author-name">Aditya Shenoy</div>
+                <div class="author-role">Marketing Director, BrandBloom</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1885,72 +2214,224 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // Scroll progress bar
-    window.addEventListener('scroll', () => {
-      const scrollProgress = document.getElementById('scrollProgress');
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const progress = (scrollTop / scrollHeight) * 100;
-      scrollProgress.style.transform = `scaleX(${progress / 100})`;
+    /* ── LOADING SCREEN ── */
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 1500);
     });
 
-    // Navbar scroll effect
+    /* ── CUSTOM CURSOR ── */
+    const dot  = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+    (function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animRing);
+    })();
+    document.querySelectorAll('a, button, .glass-card, .tech-card, .testimonial-card').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+    });
+
+    /* ── PARTICLE CANVAS ── */
+    (function() {
+      const canvas = document.getElementById('particles-canvas');
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [];
+      function resize() {
+        const hero = document.getElementById('hero');
+        W = canvas.width  = hero.offsetWidth;
+        H = canvas.height = hero.offsetHeight;
+      }
+      resize();
+      window.addEventListener('resize', () => { resize(); init(); });
+      const colors = ['rgba(0,212,255,', 'rgba(124,58,237,', 'rgba(236,72,153,'];
+      function rand(a, b) { return Math.random() * (b - a) + a; }
+      function init() {
+        particles = [];
+        const count = Math.floor(W / 14);
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: rand(0, W), y: rand(0, H),
+            r: rand(1, 3),
+            dx: rand(-0.3, 0.3), dy: rand(-0.5, -0.1),
+            color: colors[Math.floor(Math.random() * colors.length)],
+            alpha: rand(0.2, 0.7)
+          });
+        }
+      }
+      init();
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color + p.alpha + ')';
+          ctx.fill();
+          p.x += p.dx; p.y += p.dy;
+          if (p.y < -5) { p.y = H + 5; p.x = rand(0, W); }
+          if (p.x < 0) p.x = W;
+          if (p.x > W) p.x = 0;
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    /* ── TYPEWRITER ── */
+    (function() {
+      const el = document.getElementById('typewriterTarget');
+      const cursor = document.getElementById('twCursor');
+      const phrases = ['Smarter Decisions.', 'Sharper Insights.', 'Real Results.'];
+      let pi = 0, ci = 0, deleting = false;
+      function type() {
+        const phrase = phrases[pi];
+        if (!deleting) {
+          el.textContent = phrase.slice(0, ++ci);
+          if (ci === phrase.length) { deleting = true; setTimeout(type, 1800); return; }
+          setTimeout(type, 80);
+        } else {
+          el.textContent = phrase.slice(0, --ci);
+          if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(type, 400); return; }
+          setTimeout(type, 45);
+        }
+      }
+      setTimeout(type, 1000);
+    })();
+
+    /* ── COUNTER ANIMATION ── */
+    function animateCounters() {
+      document.querySelectorAll('.num[data-target]').forEach(el => {
+        const target = +el.dataset.target;
+        const suffix = el.dataset.suffix || (target >= 50 && el.closest('.stat-box').querySelector('.lbl').textContent.includes('%') ? '' : '+');
+        let start = 0;
+        const dur = 1800;
+        const step = timestamp => {
+          if (!start) start = timestamp;
+          const prog = Math.min((timestamp - start) / dur, 1);
+          const eased = 1 - Math.pow(1 - prog, 3);
+          el.textContent = Math.floor(eased * target) + (prog === 1 ? (el.closest('.stat-box').querySelector('.lbl').textContent.includes('%') ? '%' : '+') : '');
+          if (prog < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }
+    let countersDone = false;
+
+    /* ── SCROLL REVEAL (IntersectionObserver) ── */
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => revealObs.observe(el));
+
+    /* Add reveal classes dynamically to existing cards */
+    document.querySelectorAll('#services .glass-card').forEach((el, i) => {
+      el.closest('.col-md-4').classList.add('reveal');
+      el.closest('.col-md-4').style.transitionDelay = (i * 0.1) + 's';
+      revealObs.observe(el.closest('.col-md-4'));
+    });
+    document.querySelectorAll('#about .glass-card').forEach((el, i) => {
+      el.closest('.col-md-4').classList.add('reveal');
+      el.closest('.col-md-4').style.transitionDelay = (i * 0.15) + 's';
+      revealObs.observe(el.closest('.col-md-4'));
+    });
+    document.querySelectorAll('.tech-card').forEach((el, i) => {
+      el.parentElement.classList.add('reveal-scale');
+      el.parentElement.style.transitionDelay = (i * 0.08) + 's';
+      revealObs.observe(el.parentElement);
+    });
+    document.querySelectorAll('.section-header').forEach(el => {
+      el.classList.add('reveal');
+      revealObs.observe(el);
+    });
+
+    /* Trigger counters when hero stats come into view */
+    const statsObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && !countersDone) {
+        countersDone = true;
+        animateCounters();
+      }
+    }, { threshold: 0.5 });
+    const statsBar = document.querySelector('.hero-stats-bar');
+    if (statsBar) statsObs.observe(statsBar);
+
+    /* ── 3D CARD TILT ── */
+    document.querySelectorAll('.glass-card, .tech-card, .testimonial-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width  - 0.5) * 14;
+        const y = ((e.clientY - r.top)  / r.height - 0.5) * -14;
+        card.style.transform = `perspective(600px) rotateX(${y}deg) rotateY(${x}deg) translateY(-8px) scale(1.02)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+
+    /* ── SCROLL PROGRESS BAR ── */
+    window.addEventListener('scroll', () => {
+      const sp = document.getElementById('scrollProgress');
+      const st = window.pageYOffset || document.documentElement.scrollTop;
+      const sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      sp.style.transform = `scaleX(${st / sh})`;
+
+      /* Back to top visibility */
+      const btn = document.getElementById('backToTop');
+      window.scrollY > 400 ? btn.classList.add('visible') : btn.classList.remove('visible');
+    });
+
+    /* ── NAVBAR SCROLL ── */
     const navbar = document.getElementById('mainNav');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // Active nav link on scroll
+    /* ── ACTIVE NAV LINK ── */
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
-
     window.addEventListener('scroll', () => {
       let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (window.pageYOffset >= sectionTop - 100) {
-          current = section.getAttribute('id');
-        }
-      });
-
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-          link.classList.add('active');
-        }
-      });
+      sections.forEach(s => { if (window.pageYOffset >= s.offsetTop - 100) current = s.id; });
+      navLinks.forEach(l => { l.classList.toggle('active', l.getAttribute('href') === '#' + current); });
     });
 
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+    /* ── SMOOTH SCROLL ── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function(e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-
-          // Close mobile menu if open
-          const navbarCollapse = document.querySelector('.navbar-collapse');
-          if (navbarCollapse.classList.contains('show')) {
-            navbarCollapse.classList.remove('show');
-          }
+        const t = document.querySelector(this.getAttribute('href'));
+        if (t) {
+          t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.querySelector('.navbar-collapse')?.classList.remove('show');
         }
       });
     });
 
-    // Form submission (placeholder)
+    /* ── BACK TO TOP ── */
+    document.getElementById('backToTop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ── FORM SUBMIT ── */
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      alert('Message sent! 🎉\n\nI\'ll review your project and get back to you soon—usually within a few hours. Check your email!');
-      this.reset();
+      const btn = this.querySelector('button[type="submit"]');
+      btn.innerHTML = '<i class="fas fa-check ms-1"></i> Sent!';
+      btn.style.background = 'linear-gradient(135deg,#00c896,#00a878)';
+      setTimeout(() => {
+        btn.innerHTML = 'Send Enquiry <i class="fas fa-paper-plane ms-2"></i>';
+        btn.style.background = '';
+        this.reset();
+      }, 3000);
     });
   </script>
 </body>

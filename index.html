@@ -1318,6 +1318,162 @@
       margin-bottom: 2rem;
     }
 
+    /* ── PROJECT MODAL ── */
+    #projectModal {
+      position: fixed;
+      inset: 0;
+      z-index: 99990;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    #projectModal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 7, 20, 0.92);
+      backdrop-filter: blur(12px);
+    }
+    .modal-box {
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(135deg, rgba(10,14,39,0.98), rgba(15,20,51,0.98));
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 640px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 3rem;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 60px rgba(0,212,255,0.08);
+      transform: translateY(40px) scale(0.96);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,212,255,0.3) transparent;
+    }
+    #projectModal.open .modal-box {
+      transform: translateY(0) scale(1);
+    }
+    .modal-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+      border-radius: 24px 24px 0 0;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.25rem; right: 1.25rem;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .modal-close:hover {
+      background: rgba(236,72,153,0.15);
+      border-color: rgba(236,72,153,0.4);
+      color: #ec4899;
+      transform: rotate(90deg);
+    }
+    .modal-header-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent-primary);
+      margin-bottom: 0.75rem;
+    }
+    .modal-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      color: #fff;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .modal-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    .modal-step-pills {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .step-pill {
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: 1px solid rgba(0,212,255,0.2);
+      color: var(--text-muted);
+      font-family: 'Space Mono', monospace;
+      transition: all 0.3s ease;
+    }
+    .step-pill.active {
+      background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(124,58,237,0.15));
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+    .service-select-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .service-option {
+      border: 1.5px solid rgba(0,212,255,0.15);
+      border-radius: 14px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.02);
+      text-align: left;
+    }
+    .service-option:hover,
+    .service-option.selected {
+      border-color: var(--accent-primary);
+      background: rgba(0,212,255,0.07);
+    }
+    .service-option i {
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .service-option span {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #fff;
+      display: block;
+    }
+    .service-option small {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    @media (max-width: 480px) {
+      .modal-box { padding: 2rem 1.5rem; }
+      .service-select-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── LOADING SCREEN ── */
     #loader {
       position: fixed;
@@ -1853,6 +2009,163 @@
   <!-- Back To Top -->
   <button id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
 
+  <!-- PROJECT MODAL -->
+  <div id="projectModal" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" aria-label="Close"><i class="fas fa-times"></i></button>
+
+      <div class="modal-header-label">Let's Build Something</div>
+      <h2 class="modal-title">Start Your Project</h2>
+      <p class="modal-subtitle">Fill in the details below — we'll get back to you within a few hours with a clear plan and quote.</p>
+
+      <div class="modal-step-pills">
+        <span class="step-pill active">1. Service</span>
+        <span class="step-pill">2. Details</span>
+        <span class="step-pill">3. Contact</span>
+      </div>
+
+      <form id="modalForm">
+        <!-- Hidden fields for Formsubmit -->
+        <input type="hidden" name="_subject" value="New Project Enquiry — 3A Analytics">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="service" id="selectedService" value="">
+
+        <!-- Step 1: Service selection -->
+        <div class="modal-step" id="mStep1">
+          <label class="form-label mb-3">What service do you need?</label>
+          <div class="service-select-grid">
+            <div class="service-option" data-service="Power BI Dashboard">
+              <i class="fas fa-chart-bar"></i>
+              <span>Live Dashboard</span>
+              <small>Power BI / Tableau</small>
+            </div>
+            <div class="service-option" data-service="AI Forecasting">
+              <i class="fas fa-brain"></i>
+              <span>AI Forecasting</span>
+              <small>Predict future trends</small>
+            </div>
+            <div class="service-option" data-service="Data Analysis">
+              <i class="fas fa-search"></i>
+              <span>Data Analysis</span>
+              <small>Python / Excel insights</small>
+            </div>
+            <div class="service-option" data-service="Automated Report">
+              <i class="fas fa-file-alt"></i>
+              <span>Auto Reports</span>
+              <small>Save hours every week</small>
+            </div>
+            <div class="service-option" data-service="Custom AI Solution">
+              <i class="fas fa-robot"></i>
+              <span>Custom AI Solution</span>
+              <small>Built for your workflow</small>
+            </div>
+            <div class="service-option" data-service="Not Sure">
+              <i class="fas fa-lightbulb"></i>
+              <span>Not Sure Yet</span>
+              <small>Let's figure it out</small>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary-custom w-100 mt-2" id="toStep2" disabled>
+            Next — Add Details <i class="fas fa-arrow-right ms-2"></i>
+          </button>
+        </div>
+
+        <!-- Step 2: Project details -->
+        <div class="modal-step" id="mStep2" style="display:none">
+          <div class="mb-4">
+            <label class="form-label">Describe your data challenge</label>
+            <div class="input-wrap">
+              <textarea class="form-control" name="message" id="mMessage" rows="4"
+                placeholder="What problem are you trying to solve? What data do you have?" required></textarea>
+              <i class="fas fa-comment-dots input-icon"></i>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Budget range (optional)</label>
+            <div class="input-wrap">
+              <select class="form-control" name="budget" style="padding-left:3rem;">
+                <option value="">Select a range</option>
+                <option>Under ₹5,000</option>
+                <option>₹5,000 – ₹15,000</option>
+                <option>₹15,000 – ₹30,000</option>
+                <option>₹30,000+</option>
+              </select>
+              <i class="fas fa-rupee-sign input-icon"></i>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">When do you need it?</label>
+            <div class="input-wrap">
+              <select class="form-control" name="timeline" style="padding-left:3rem;">
+                <option value="">Select timeline</option>
+                <option>ASAP (within 1 week)</option>
+                <option>2 – 4 weeks</option>
+                <option>1 – 2 months</option>
+                <option>No rush</option>
+              </select>
+              <i class="fas fa-calendar input-icon"></i>
+            </div>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-outline-custom" id="toStep1Back">
+              <i class="fas fa-arrow-left me-2"></i> Back
+            </button>
+            <button type="button" class="btn btn-primary-custom flex-grow-1" id="toStep3">
+              Next — Your Contact <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Contact info -->
+        <div class="modal-step" id="mStep3" style="display:none">
+          <div class="mb-4">
+            <label class="form-label">Your Full Name</label>
+            <div class="input-wrap">
+              <input type="text" class="form-control" name="name" id="mName"
+                placeholder="e.g. Ramesh Kumar" required>
+              <i class="fas fa-user input-icon"></i>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Email Address</label>
+            <div class="input-wrap">
+              <input type="email" class="form-control" name="email" id="mEmail"
+                placeholder="you@company.com" required>
+              <i class="fas fa-envelope input-icon"></i>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Phone Number (optional)</label>
+            <div class="input-wrap">
+              <input type="text" class="form-control" name="phone"
+                placeholder="+91 00000 00000">
+              <i class="fas fa-phone input-icon"></i>
+            </div>
+          </div>
+
+          <!-- Success/Error messages -->
+          <div id="modalSuccess" style="display:none;padding:1rem 1.5rem;border-radius:12px;background:rgba(0,200,150,0.15);border:1px solid rgba(0,200,150,0.4);color:#00c896;margin-bottom:1rem;font-weight:500;">
+            <i class="fas fa-check-circle me-2"></i> Sent! We'll reply within a few hours.
+          </div>
+          <div id="modalError" style="display:none;padding:1rem 1.5rem;border-radius:12px;background:rgba(236,72,153,0.15);border:1px solid rgba(236,72,153,0.4);color:#ec4899;margin-bottom:1rem;font-weight:500;">
+            <i class="fas fa-exclamation-circle me-2"></i> Something went wrong. Please try again.
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-outline-custom" id="toStep2Back">
+              <i class="fas fa-arrow-left me-2"></i> Back
+            </button>
+            <button type="submit" class="btn btn-primary-custom flex-grow-1" id="modalSubmitBtn">
+              Send Enquiry <i class="fas fa-paper-plane ms-2"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -1877,7 +2190,7 @@
           <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
           <li class="nav-item ms-lg-3">
-            <a href="#contact" class="btn btn-primary-custom">Hire Me</a>
+            <button onclick="openModal()" class="btn btn-primary-custom">Hire Me</button>
           </li>
         </ul>
       </div>
@@ -1939,10 +2252,10 @@
             </p>
 
             <div class="hero-cta">
-              <a href="#contact" class="btn btn-primary-custom">
+              <button onclick="openModal()" class="btn btn-primary-custom">
                 Start Your Project
                 <i class="fas fa-arrow-right ms-2"></i>
-              </a>
+              </button>
               <a href="#services" class="btn btn-outline-custom">
                 Explore Services
               </a>
@@ -2814,6 +3127,100 @@
     /* ── BACK TO TOP ── */
     document.getElementById('backToTop').addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ── PROJECT MODAL ── */
+    function openModal() {
+      document.getElementById('projectModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      resetModal();
+    }
+    function closeModal() {
+      document.getElementById('projectModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function resetModal() {
+      showStep(1);
+      document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
+      document.getElementById('selectedService').value = '';
+      document.getElementById('toStep2').disabled = true;
+      document.getElementById('modalSuccess').style.display = 'none';
+      document.getElementById('modalError').style.display = 'none';
+      document.getElementById('modalForm').reset();
+      document.querySelectorAll('.step-pill').forEach((p,i) => p.classList.toggle('active', i===0));
+    }
+    function showStep(n) {
+      ['mStep1','mStep2','mStep3'].forEach((id,i) => {
+        document.getElementById(id).style.display = (i===n-1) ? 'block' : 'none';
+      });
+      document.querySelectorAll('.step-pill').forEach((p,i) => p.classList.toggle('active', i<n));
+    }
+
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modalBackdrop').addEventListener('click', closeModal);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // Service selection
+    document.querySelectorAll('.service-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        document.getElementById('selectedService').value = opt.dataset.service;
+        document.getElementById('toStep2').disabled = false;
+      });
+    });
+
+    // Step navigation
+    document.getElementById('toStep2').addEventListener('click', () => showStep(2));
+    document.getElementById('toStep1Back').addEventListener('click', () => showStep(1));
+    document.getElementById('toStep3').addEventListener('click', () => {
+      if (!document.getElementById('mMessage').value.trim()) {
+        document.getElementById('mMessage').focus(); return;
+      }
+      showStep(3);
+    });
+    document.getElementById('toStep2Back').addEventListener('click', () => showStep(2));
+
+    // Modal form submit
+    document.getElementById('modalForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('modalSubmitBtn');
+      const name = document.getElementById('mName').value.trim();
+      const email = document.getElementById('mEmail').value.trim();
+      if (!name || !email) return;
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin ms-1"></i> Sending…';
+
+      const data = {
+        name,
+        email,
+        service:  document.getElementById('selectedService').value,
+        message:  document.getElementById('mMessage').value,
+        budget:   this.querySelector('[name="budget"]').value,
+        timeline: this.querySelector('[name="timeline"]').value,
+        phone:    this.querySelector('[name="phone"]').value
+      };
+
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/3aanalytical@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        if (json.success === 'true' || json.success === true) {
+          document.getElementById('modalSuccess').style.display = 'block';
+          btn.innerHTML = '<i class="fas fa-check me-1"></i> Sent!';
+          btn.style.background = 'linear-gradient(135deg,#00c896,#00a878)';
+          setTimeout(() => { closeModal(); btn.style.background = ''; }, 3000);
+        } else { throw new Error(); }
+      } catch {
+        document.getElementById('modalError').style.display = 'block';
+        btn.innerHTML = 'Send Enquiry <i class="fas fa-paper-plane ms-2"></i>';
+      } finally {
+        btn.disabled = false;
+      }
     });
 
     /* ── FAQ ACCORDION ── */
